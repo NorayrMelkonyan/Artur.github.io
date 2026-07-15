@@ -379,7 +379,7 @@
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
     const firebaseConfig = {
         apiKey: "AIzaSyAPguplFnBe6Yy9QNeb3DJwt9qFydFNcA4",
         authDomain: "acrobatic-5c3b5.firebaseapp.com",
@@ -392,7 +392,18 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+const auth = getAuth(app); // 2. ԱՎԵԼԱՑՐՈՒ ԱՅՍ ՏՈՂԸ
 
+// 3. ԱՎԵԼԱՑՐՈՒ ԱՅՍ ՍՏՈՒԳՈՒՄԸ, ՈՐԸ ԿՊԱՇՏՊԱՆԻ ԷՋԸ՝
+onAuthStateChanged(auth, (user) => {
+    if (!user) {
+        // Եթե օգտատերը լոգին եղած չէ, նրան հետ է ուղարկում մուտքի էջ (index.html)
+        window.location.href = "index.html";
+    }
+});
+
+
+    
     const CLOUDINARY_CLOUD_NAME = "dhxhjvoc7"; 
     const CLOUDINARY_UPLOAD_PRESET = "z9r54n9z"; 
 
